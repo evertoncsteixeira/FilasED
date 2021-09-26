@@ -3,7 +3,12 @@ package edu.fatec;
 public class Fila {
 	No inicio;
 	No fim;
-
+	
+	public Fila() {
+		inicio = null;
+		fim = null;
+	}
+	
 	public boolean isEmpty() {
 		if ((inicio == null) && (fim == null)) {
 			return true;
@@ -16,21 +21,21 @@ public class Fila {
 
 		No novo = new No();
 		novo.dado = dado;
-		if (isEmpty()) {
+		
+		if (inicio == null) {
 			inicio = novo;
-
 			fim = novo;
-
-			fim.proximo = inicio;
-
+			novo.proximo = null;
 		} else {
-
-			novo.proximo = inicio;
-
-			fim.proximo = novo;
-
-			fim = novo;
-
+			if (inicio == fim && inicio != null) {
+				fim = novo;
+				inicio.proximo = fim;
+				fim.proximo = null;
+			} else {
+				fim.proximo = novo;
+				novo.proximo = null;
+				fim = novo;
+			}
 		}
 	}
 
@@ -78,7 +83,6 @@ public class Fila {
 
 			System.out.println(aux.dado);
 			aux =  aux.proximo;
-
 		}
 
 	}
