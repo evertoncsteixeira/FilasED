@@ -1,0 +1,121 @@
+package edu.fatec;
+
+public class Fila {
+	No inicio;
+	No fim;
+
+	public boolean isEmpty() {
+		if ((inicio == null) && (fim == null)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void adicionarFila(String dado) {
+
+		No novo = new No();
+		novo.dado = dado;
+		if (isEmpty()) {
+			inicio = novo;
+
+			fim = novo;
+
+			fim.proximo = inicio;
+
+		} else {
+
+			novo.proximo = inicio;
+
+			fim.proximo = novo;
+
+			fim = novo;
+
+		}
+	}
+
+	public String removerFila() throws Exception {
+
+		String removido;
+
+		if (isEmpty()) {
+
+			throw new Exception("Não há elementos na fila");
+
+		} else if (inicio == fim) {
+
+			removido = inicio.dado;
+
+			inicio = null;
+
+			fim = null;
+
+		} else {
+
+			removido = inicio.dado;
+
+			fim = inicio;
+
+			inicio = inicio.proximo;
+
+			fim.proximo = inicio;
+
+		}
+
+		return removido;
+
+	}
+
+	public void Listar() throws Exception {
+
+		if (isEmpty()) {
+
+			throw new Exception("Não há elementos na fila");
+
+		}
+		No aux = inicio;
+		while (aux != null) {
+
+			System.out.println(aux.dado);
+			aux =  aux.proximo;
+
+		}
+
+	}
+	
+	public int size() {
+		int cont = 0;
+		if (!isEmpty()) {
+			No aux = inicio;
+			while (aux != null) {
+				cont += 1;
+				aux = aux.proximo;
+			}
+		}
+		return cont;
+	}
+	
+	public String get (int p) throws Exception {
+		if (isEmpty()) {
+			throw new Exception("Não há elementos na fila");
+		}
+		
+		if (p < 0) {
+			throw new Exception("Posição inexistente");
+		}
+		
+		int tamanho = size();
+		
+		if (p > tamanho - 1) {
+			throw new Exception("Posição inexistente");
+		}
+		
+		int cont = 0;
+		No aux = inicio;
+		while (cont < p) {
+			aux = aux.proximo;
+			cont++;
+		}
+		return aux.dado;
+	}
+}
